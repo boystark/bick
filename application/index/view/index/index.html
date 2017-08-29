@@ -1,0 +1,130 @@
+{extend name="public/main" /}
+{block name="content"}
+<article class="col-sm-12 col-md-8 col-lg-9">
+    <div id="carousel-example" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example" data-slide-to="1"></li>
+            <li data-target="#carousel-example" data-slide-to="2"></li>
+        </ol><!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <a href="__MYURL__index/article/index/artid/22.html">
+                    <img src="http://ww1.sinaimg.cn/large/44287191gw1excbq6tb3rj21400migrz.jpg" alt="..." />
+                </a>
+                <div class="carousel-caption">...</div>
+            </div>
+            <div class="item">
+                <a href="__MYURL__index/article/index/artid/20.html">
+                    <img src="http://ww3.sinaimg.cn/large/44287191gw1excbq5iwm6j21400min3o.jpg" alt="..." />
+                </a>
+                <div class="carousel-caption">...</div>
+            </div>
+            <div class="item">
+                <a href="__MYURL__index/article/index/artid/18.html">
+                    <img src="http://ww2.sinaimg.cn/large/44287191gw1excbq4kx57j21400migs4.jpg" alt="..." />
+                </a>
+                <div class="carousel-caption">...</div>
+            </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#carousel-example" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
+    <div id="xh_container">
+        <a name="new"></a>
+        <div id="xh_content" style="padding-right:10px;">
+            <div class="xh_area_h_3">
+                <div class="xh_area_title">
+                    <a href="javascript:" class="t">New 最近更新</a> <span class="r">
+                            {volist name="recIndex" id="cate"}
+                            <a href="__MYURL__/index/{if condition="$cate['type'] eq 1"}artlist{elseif condition="$cate['type'] eq 3" /}imglist{else /}page{/if}/index/cateid/{$cate.id}" target="_blank">{$cate.catename}</a>
+                    {/volist}
+                             </span>
+                </div>
+                <br>
+
+                {volist name="newArtiecleRes" id="article"}
+                <div class="xh_post_h_3 ofh">
+                    {if condition="$article['thumb'] neq ''"}
+                    <div class="xh_265x265">
+                        <a target="_blank" href="{:url('Article/index',array('artid'=>$article['id']))}" title="{$article.title}">
+                            <img src="{$article.thumb}" alt="{$article.title}" height="240" width="400"></a></div>
+                    {/if}
+                    <div class="{if condition="$article['thumb'] neq ''"}r {else /}l {/if} ofh">
+                    <h2 class="xh_post_h_3_title ofh">
+                        <a target="_blank" href="{:url('Article/index',array('artid'=>$article['id']))}" title="{$article.title}">{$article.title}</a>
+                    </h2>
+                    <span class="time">{$article.time|date="Y-m-d H:i",###}</span>
+                    <div class="xh_post_h_3_entry ofh">{$article.desc}
+                    </div>
+                    <div class="b">
+                        <span title="{$article.zan}人赞" class="xh_love"><span class="textcontainer"><span>{$article.zan}</span></span> <span class="bartext"></span></span> <span title="{$article.click}人浏览" class="xh_views">{$article.click}</span>
+                    </div>
+                </div>
+                <span class="cat"><a href="javascript:;"
+                                     rel="category tag">{$article.catename}</a></span>
+            </div>
+            {/volist}
+
+
+        </div>
+    </div>
+</article>
+<aside class="col-md-4 col-lg-3">
+    <div id="xh_sidebar">
+
+        <div class="widget">
+
+            <div style="background: url('__INDEX__/images/hots_bg.png') no-repeat scroll 0 0 transparent;width:250px;height:52px;margin-bottom:15px;"></div>
+            <ul id="ulHot">
+                {volist name="siteHotArt" id="article"}
+                <li style="border-bottom:dashed 1px #ccc;height:70px; margin-bottom:15px;">
+                    <div style="float:left;width:85px;height:55px; overflow:hidden;"><a href="{:url('Article/index',array('artid'=>$article['id']))}" target="_blank"><img src="{$article.thumb}" width="83" title="{$article.title}" /></a></div>
+                    <div style="float:right;width:145px;height:52px; overflow:hidden;"><a href="{:url('Article/index',array('artid'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title}</a></div>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+        <div class="widget links">
+            <h3>友情链接</h3>
+            <ul>
+                {volist name="linkRes" id="link"}
+                <li><a href="<?php  if(strpos($link['url'], 'http://')!==0){echo 'http://'.$link['url'];}else{echo $link['url'];} ?>" target='_blank'>{$link.title}</a> </li>
+                {/volist}
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+</aside>
+
+<div class="sitemap">
+    <h4>SITE MAP</h4>
+    <div class="l">
+        <ul id="menu-sitemap" class="menu">
+            {volist name="cateres" id="cate"}
+            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                <a target="_blank" href="__MYURL__/index/{if condition="$cate['type'] eq 1"}artlist{elseif condition="$cate['type'] eq 3" /}imglist{else /}page{/if}/index/cateid/{$cate.id}">{$cate.catename}</a>
+                {if condition="$cate['children'] neq 0"}
+                <ul class="sub-menu">
+                    <?php foreach ($cate['children'] as $k2 => $v2):?>
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category">
+                        <a target="_blank" href="__MYURL__/index/{if condition="$v2['type'] eq 1"}artlist{elseif condition="$v2['type'] eq 3" /}imglist{else /}page{/if}/index/cateid/{$v2.id}"><?php echo $v2['catename'];?></a></li>
+
+                    <?php endforeach;?>
+                </ul>
+                {/if}
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    <div class="r">
+        <h5>FOLLOW US</h5>
+        <img src="__INDEX__/images/weixin.jpg" alt="" title="扫描添加我们的公众微信" class="alignnone size-full wp-image-18966"
+             height="140" width="120"></a></div>
+</div>
+
+{/block}
