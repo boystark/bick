@@ -18,7 +18,7 @@ class Article extends Model
       });
 
 
-      	Article::event('before_update',function($article){
+        Article::event('before_update',function($article){
           if($_FILES['thumb']['tmp_name']){
           		$arts=Article::find($article->id);
           		$thumbpath=$_SERVER['DOCUMENT_ROOT'].$arts['thumb'];
@@ -26,7 +26,7 @@ class Article extends Model
                 	@unlink($thumbpath);
                 }
                 $file = request()->file('thumb');
-                $info = $file->move(ROOT_PATH.'public\static'. DS. 'uploads');
+                $info = $file->move(ROOT_PATH.'public/static'. DS. 'uploads');
                 if($info){
                     $thumb='/static/uploads'.DS.$info->getSaveName();
                     $article['thumb']=$thumb;
